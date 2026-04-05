@@ -1,4 +1,6 @@
-# Laravel + Blade + Breeze (Docker)
+# upk-docker
+
+Docker config to start up **upk** - "**uznemuma personala kartoteka**" demo project.
 
 Dev stack: **Laravel + Vue.js + Nginx + PHP-FPM + Vite** with **SQLite** (no DB container).
 

@@ -148,7 +148,12 @@ else
 fi
 
 # Docker-friendly Vite config (bind mounts on Windows benefit from polling).
-cat > vite.config.js <<'EOF'
+# Keep a repo's own Vite config intact because Vue apps may already rely on
+# @vitejs/plugin-vue and other project-specific plugins.
+if ls vite.config.* >/dev/null 2>&1; then
+  echo "Existing Vite config detected; leaving it unchanged."
+else
+  cat > vite.config.js <<'EOF'
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 
@@ -172,6 +177,7 @@ export default defineConfig({
     ],
 });
 EOF
+fi
 
 php artisan migrate --ansi
 

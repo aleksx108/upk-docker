@@ -1,6 +1,15 @@
-# Laravel + Blade + Breeze (Docker)
+# upk-docker
+
+Docker config to start up **upk** - "**uznemuma personala kartoteka**" demo project.
 
 Dev stack: **Laravel + Vue.js + Nginx + PHP-FPM + Vite** with **SQLite** (no DB container).
+
+## Repository
+
+- Repo URL: `https://github.com/aleksx108/upk-docker`
+- Clone with Git:
+  `git clone https://github.com/aleksx108/upk-docker.git`
+- Or download as ZIP from the GitHub repository page and extract it to a folder such as `C:\projects\upk-docker`.
 
 ## Prerequisites
 
