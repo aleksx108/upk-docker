@@ -1,6 +1,7 @@
 # upk-docker
 
-Docker config to start up **upk** - "**uznemuma personala kartoteka**" demo project.
+Docker development config for **UPK** - "**uznemuma personala kartoteka**" demo project.
+Demo project repo: https://github.com/aleksx108/upk
 
 Dev stack: **Laravel + Vue.js + Nginx + PHP-FPM + Vite** with **SQLite** (no DB container).
 
