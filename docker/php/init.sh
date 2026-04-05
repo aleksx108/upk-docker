@@ -106,6 +106,18 @@ if [ ! -f database/database.sqlite ]; then
   : > database/database.sqlite
 fi
 
+DB_FILE="database/database.sqlite"
+DB_ALREADY_BOOTSTRAPPED=0
+
+if [ -s "$DB_FILE" ]; then
+  if sqlite3 "$DB_FILE" "SELECT 1 FROM sqlite_master WHERE type='table' AND name='migrations';" 2>/dev/null | grep -q '^1$'; then
+    MIGRATION_COUNT="$(sqlite3 "$DB_FILE" "SELECT COUNT(*) FROM migrations;" 2>/dev/null || echo 0)"
+    if [ "${MIGRATION_COUNT:-0}" -gt 0 ]; then
+      DB_ALREADY_BOOTSTRAPPED=1
+    fi
+  fi
+fi
+
 fix_perms
 
 sed -i 's|^APP_URL=.*|APP_URL=http://localhost|' .env
@@ -179,7 +191,13 @@ export default defineConfig({
 EOF
 fi
 
-php artisan migrate --seed
+php artisan migrate --ansi
+
+if [ "$DB_ALREADY_BOOTSTRAPPED" -eq 0 ]; then
+  php artisan db:seed --ansi
+else
+  echo "Existing database detected; skipping automatic seeding."
+fi
 
 fix_perms
 
