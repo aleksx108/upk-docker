@@ -1,6 +1,6 @@
 # Laravel + Blade + Breeze (Docker)
 
-Dev stack: **Nginx + PHP-FPM + Vite** with **SQLite** (no DB container).
+Dev stack: **Laravel + Vue.js + Nginx + PHP-FPM + Vite** with **SQLite** (no DB container).
 
 ## Prerequisites
 
