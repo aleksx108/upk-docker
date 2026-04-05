@@ -1,0 +1,54 @@
+services:
+  init:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    volumes:
+      - appdata:/var/www/html
+    command: ["init-laravel"]
+    environment:
+      APP_ENV: local
+      GIT_REPO: https://github.com/aleksx108/upk.git
+      GIT_REF: main
+
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    volumes:
+      - appdata:/var/www/html
+    depends_on:
+      init:
+        condition: service_completed_successfully
+
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    volumes:
+      - appdata:/var/www/html:ro
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+
+  node:
+    image: node:20-alpine
+    working_dir: /var/www/html
+    volumes:
+      - appdata:/var/www/html
+    depends_on:
+      init:
+        condition: service_completed_successfully
+    command:
+      [
+        "sh",
+        "-lc",
+        "if [ -d node_modules ]; then :; elif [ -f package-lock.json ]; then npm ci; else npm install; fi; npm run dev -- --host 0.0.0.0 --port 5173"
+      ]
+    ports:
+      - "5173:5173"
+
+volumes:
+  appdata:
+    name: upk_volume
