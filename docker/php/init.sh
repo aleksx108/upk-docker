@@ -179,7 +179,7 @@ export default defineConfig({
 EOF
 fi
 
-php artisan migrate --ansi
+php artisan migrate --seed
 
 fix_perms
 
