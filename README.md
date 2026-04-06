@@ -35,4 +35,5 @@ Dev stack: **Laravel + Vue.js + Nginx + PHP-FPM + Vite** with **SQLite** (no DB 
 ## Notes
 
 - The project code lives in a **single named Docker volume**: `upk_volume` (mounted into all services at `/var/www/html`).
+- SQLite was used for simplicity and fast setup in a prototype environment. The application is designed so it can be easily migrated to MySQL/PostgreSQL for production use.
 - The init container will clone `GIT_REPO` (default set in `docker-compose.yml`) on first run; to pull fresh code later, re-create the volume (`docker compose down -v`).
