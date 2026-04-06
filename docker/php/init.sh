@@ -5,6 +5,19 @@ cd /var/www/html
 
 export COMPOSER_ALLOW_SUPERUSER=1
 
+ensure_git_safe_directory() {
+  if ! command -v git >/dev/null 2>&1; then
+    return
+  fi
+
+  if [ "${GIT_SAFE_DIRECTORY_CONFIGURED:-0}" -eq 1 ]; then
+    return
+  fi
+
+  git config --global --add safe.directory /var/www/html >/dev/null 2>&1 || true
+  GIT_SAFE_DIRECTORY_CONFIGURED=1
+}
+
 fix_perms() {
   mkdir -p \
     storage/framework/cache \
@@ -38,6 +51,7 @@ GIT_REF="${GIT_REF:-main}"
 if [ -n "$GIT_REPO" ]; then
   if [ -d .git ]; then
     echo "Updating from $GIT_REPO ($GIT_REF) ..."
+    ensure_git_safe_directory
     
     # Check for untracked/modified files that would conflict
     if git status --porcelain | grep -q .; then
