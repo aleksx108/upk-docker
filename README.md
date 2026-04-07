@@ -29,7 +29,7 @@ Dev stack: **Laravel + Vue.js + Nginx + PHP-FPM + Vite** with **SQLite** (no DB 
   `docker-compose exec node sh`
 - Open a shell in the Nginx container:
   `docker-compose exec nginx sh`
-- If Git reports a `safe.directory` warning for the Docker volume, run:
+- If Git reports a `safe.directory` warning for the Docker volume, run (for Windows WSL:
   `git config --global --add safe.directory '%(prefix)///wsl.localhost/docker-desktop/mnt/docker-desktop-disk/data/docker/volumes/upk_volume/_data'`
 
 ## Notes
