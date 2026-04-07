@@ -3,7 +3,7 @@
 Docker development config for **UPK** - "**uznemuma personala kartoteka**" demo project.
 Demo project repo: https://github.com/aleksx108/upk
 
-Dev stack: **Laravel + Vue.js + Nginx + PHP-FPM + Vite** with **SQLite** (no DB container).
+Dev stack: **Laravel 13 + Vue.js + Nginx + PHP 8.3 + Vite** with **SQLite** (no DB container).
 
 ## Prerequisites
 
